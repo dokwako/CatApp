@@ -1,4 +1,4 @@
-package com.example.catapp.di
+package com.example.catapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
