@@ -85,6 +85,11 @@ dependencies {
     // Coroutine for background tasks
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
+    //Coil dependency
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
+
+
 }
 
 // Allow references to generated code
