@@ -33,8 +33,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -69,8 +68,7 @@ dependencies {
     //Jetpack Compose
     implementation("androidx.compose.ui:ui:1.5.0")
     implementation("androidx.compose.material3:material3:1.0.1")
-    implementation("androidx.compose.ui:tooling-preview:1.5.0")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.5.0")
+    debugImplementation("androidx.compose.ui:ui-tooling-preview:1.5.0")
 
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.1")
@@ -89,6 +87,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
 
 
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.4.3") // Replace with latest stable version
 
 }
 
