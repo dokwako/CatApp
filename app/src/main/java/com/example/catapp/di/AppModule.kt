@@ -1,5 +1,7 @@
 package com.example.catapp.di
 
+import com.example.catapp.data.api.CatApiService
+import com.example.catapp.data.repository.CatRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +20,6 @@ object AppModule {
 
     fun provideRetrofit() :Retrofit{
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://api.thecatapi.com/v1/")
             .client(OkHttpClient.Builder().build())
