@@ -1,11 +1,12 @@
 package com.example.catapp.ui.screens
 
-import android.net.Network
-import androidx.compose.foundation.Image
+
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -13,10 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.example.catapp.ui.viewmodel.CatViewModel
+import coil.compose.AsyncImage
+import com.example.catapp.core.NetworkResult
+
 
 @Composable
 fun CatScreen(catViewModel: CatViewModel) {
-    val catsState = catViewModel.cats.collectAsState()
+    val catsState = catViewModel.cats
 
     LaunchedEffect(Unit) {
         catViewModel.fetchCats()
@@ -28,9 +32,9 @@ fun CatScreen(catViewModel: CatViewModel) {
                 CircularProgressIndicator()
             }
             is NetworkResult.Success -> {
-                result.data?.ForEach { catImageUrl ->
-                    Image(
-                        painter = rememberImagePainter(catImageUrl),
+                result.data?.forEach { catImageUrl ->
+                    AsyncImage(
+                        model = catImageUrl,
                         contentDescription = null,
                         modifier = Modifier.height(200.dp),
                         contentScale = ContentScale.Crop
