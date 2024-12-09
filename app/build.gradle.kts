@@ -64,6 +64,10 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    //kapt("androidx.hilt:hilt-compiler:1.0.0") // For ViewModel
+    //implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")// For ViewModel
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
 
     //Jetpack Compose
     implementation("androidx.compose.ui:ui:1.5.0")
@@ -71,7 +75,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling-preview:1.5.0")
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.1")
+    implementation("androidx.navigation:navigation-compose:2.8.4")
 
     //Retrofit & Gson for API calls
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
