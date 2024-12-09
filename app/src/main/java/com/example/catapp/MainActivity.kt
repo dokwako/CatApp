@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun WelcomeScreen(viewModel: CatViewModel = hiltViewModel()) {
     val catsState = viewModel.cats.value
