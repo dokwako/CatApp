@@ -14,14 +14,14 @@ import javax.inject.Inject
 class CatViewModel @Inject constructor(
     private val catRepository: CatRepository
 ) : ViewModel() {
-    private val _cats = mutableStateOf<NetworkResult<List<String>>>(NetworkResult.Loading())
+    private val _cats = mutableStateOf<NetworkResult<List<String>>>(NetworkResult.Loading)
     val cats: State<NetworkResult<List<String>>> get()= _cats
 
     //Fetch cat data
     fun fetchCats() {
         viewModelScope.launch {
-            _cats.value = NetworkResult.Loading()
-            val result = catRepository.getCats()
+            _cats.value = NetworkResult.Loading
+            val result = catRepository.getCats("live_dMNF78WWpdNRXSPYgegR5C3wygiNgtgIBcoompnU6LeFnypryQ7YEhkzzMJjp8AG")
             _cats.value = result
         }
 
