@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
+//
 @Composable
 fun WelcomeScreen(viewModel: CatViewModel = hiltViewModel()) {
     val catsState = viewModel.cats.value
@@ -43,6 +43,8 @@ fun WelcomeScreen(viewModel: CatViewModel = hiltViewModel()) {
     LaunchedEffect(Unit) {
         viewModel.fetchCats()
     }
+
+    //
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
