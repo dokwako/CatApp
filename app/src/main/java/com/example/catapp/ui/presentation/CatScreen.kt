@@ -66,9 +66,9 @@ fun CatCard(catImageUrl: String) {
             .fillMaxWidth()
             .aspectRatio(1f), // Ensures cards are square
         shape = RoundedCornerShape(16.dp),
-        colors = androidx.compose.material3.CardDefaults.cardColors( // Optional, for color customization
-            containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
-        )
+//        colors = androidx.compose.material3.CardDefaults.cardColors( // Optional, for color customization
+//            containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
+//        )
 
     ) {
         AsyncImage(
