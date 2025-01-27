@@ -64,18 +64,24 @@ fun CatCard(catImageUrl: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1f), // Ensures cards are square
+            .aspectRatio(1f) // Ensures cards are square
+            .padding(8.dp), // Add some padding to verify space
         shape = RoundedCornerShape(16.dp),
-//        colors = androidx.compose.material3.CardDefaults.cardColors( // Optional, for color customization
-//            containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
-//        )
-
-    ) {
-        AsyncImage(
-            model = catImageUrl,
-            contentDescription = "Cat Image",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+        colors = androidx.compose.material3.CardDefaults.cardColors(
+            containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
         )
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(4.dp) // Internal padding
+        ) {
+            AsyncImage(
+                model = catImageUrl,
+                contentDescription = "Cat Image",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     }
 }
