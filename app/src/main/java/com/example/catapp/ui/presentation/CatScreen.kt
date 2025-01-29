@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.catapp.ui.viewmodel.CatViewModel
 import com.example.catapp.core.NetworkResult
@@ -38,10 +37,12 @@ fun CatScreen(catViewModel: CatViewModel) {
         }
         is NetworkResult.Success -> {
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2), // 2 columns in the grid
+                columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement
+                    .spacedBy(16.dp),
+                horizontalArrangement = Arrangement
+                    .spacedBy(16.dp)
             ) {
                 items(result.data) { catImageUrl ->
                     CatCard(catImageUrl)
