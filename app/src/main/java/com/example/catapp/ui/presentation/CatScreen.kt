@@ -1,5 +1,6 @@
 package com.example.catapp.ui.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,8 +18,10 @@ import coil.compose.AsyncImage
 import com.example.catapp.ui.viewmodel.CatViewModel
 import com.example.catapp.core.NetworkResult
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
+import androidx.compose.ui.res.painterResource
 import com.google.accompanist.swiperefresh.SwipeRefresh
 
 @Composable
@@ -79,6 +82,23 @@ fun CatScreen(catViewModel: CatViewModel) {
         }
     }
 }
+
+@Composable
+fun TopBar() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(text = " Nairobi, Kenya ", style = MaterialTheme.typography.titleMedium)
+        Image(painter = painterResource(id = R.drawable.Profile), contentDescription = "Profile")
+    }
+}
+
+
+
+
 
 @Composable
 fun CatCard(catImageUrl: String) {
