@@ -1,5 +1,6 @@
 package com.example.catapp.ui.presentation
 
+import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -19,9 +20,12 @@ import com.example.catapp.ui.viewmodel.CatViewModel
 import com.example.catapp.core.NetworkResult
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Button
+import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.swiperefresh.SwipeRefresh
 
 @Composable
@@ -96,7 +100,36 @@ fun TopBar() {
     }
 }
 
+@Composable
+fun SearchBar() {
+    OutlinedTextField(
+        value = "",
+        onValueChange = {},
+        label = { Text("Search") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    )
+}
 
+@Composable
+fun PetCategoryTabs() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    )
+    {
+        listOf("Dogs","Cats","Rabbits").forEach { category ->
+            Button(
+                onClick = {/* Handle tab click */},
+                modifier = Modifier.padding(end = 8.dp)
+            ) {
+                Text(category)
+            }
+        }
+    }
+}
 
 
 
@@ -127,5 +160,3 @@ fun CatCard(catImageUrl: String) {
         }
     }
 }
-
-
