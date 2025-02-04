@@ -17,6 +17,9 @@ import coil.compose.AsyncImage
 import com.example.catapp.ui.viewmodel.CatViewModel
 import com.example.catapp.core.NetworkResult
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
+import com.google.accompanist.swiperefresh.SwipeRefresh
 
 @Composable
 fun CatScreen(catViewModel: CatViewModel) {
@@ -26,36 +29,53 @@ fun CatScreen(catViewModel: CatViewModel) {
         catViewModel.fetchCats()
     }
 
-    when (val result = catsState.value) {
-        is NetworkResult.Loading -> {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-        is NetworkResult.Success -> {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement
-                    .spacedBy(16.dp),
-                horizontalArrangement = Arrangement
-                    .spacedBy(16.dp)
-            ) {
-                items(result.data) { catImageUrl ->
-                    CatCard(catImageUrl)
+    Scaffold(
+        topBar = {TopBar() },
+        bottomBar = {bottomNavigationBar() }
+    ) {
+        paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            SearchBar()
+            PetCategoryTabs()
+
+            when (val result = catsState.value) {
+                is NetworkResult.Loading -> {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
+                is NetworkResult.Success -> {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement
+                            .spacedBy(16.dp),
+                        horizontalArrangement = Arrangement
+                            .spacedBy(16.dp)
+                    ) {
+                        items(result.data) { catImageUrl ->
+                            CatCard(catImageUrl)
+                        }
+                    }
+                }
+                is NetworkResult.Error -> {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        Text(text = "Error: ${result.message}")
+                    }
+                }
+
             }
-        }
-        is NetworkResult.Error -> {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text(text = "Error: ${result.message}")
-            }
+
         }
     }
 }
@@ -66,12 +86,13 @@ fun CatCard(catImageUrl: String) {
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f) // Ensures cards are square
-            .padding(8.dp), // Add some padding to verify space
+            .padding(8.dp),
         shape = RoundedCornerShape(16.dp),
         colors = androidx.compose.material3.CardDefaults.cardColors(
             containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surface
         )
-    ) {
+    )
+    {
         Box(
             modifier = Modifier
                 .fillMaxSize()
