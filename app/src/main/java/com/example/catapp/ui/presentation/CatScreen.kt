@@ -1,8 +1,10 @@
 package com.example.catapp.ui.presentation
 
+import android.graphics.drawable.Icon
 import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -19,6 +21,8 @@ import coil.compose.AsyncImage
 import com.example.catapp.ui.viewmodel.CatViewModel
 import com.example.catapp.core.NetworkResult
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -26,6 +30,8 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.catapp.data.api.CatApiService
+import com.example.catapp.data.repository.CatRepository
 import com.google.accompanist.swiperefresh.SwipeRefresh
 
 @Composable
@@ -105,7 +111,8 @@ fun SearchBar() {
     OutlinedTextField(
         value = "",
         onValueChange = {},
-        label = { Text("Search") },
+        label = { Text("Search for pets") },
+        leadingIcon = { Icon (Icons.Default.Search, contentDescription = "Search") },
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
@@ -113,16 +120,15 @@ fun SearchBar() {
 }
 
 @Composable
-fun PetCategoryTabs() {
+fun PetCategorySelector() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-    )
-    {
-        listOf("Dogs","Cats","Rabbits").forEach { category ->
+    ) {
+        listOf("Dogs", "Cats", "Rabbits").forEach { category ->
             Button(
-                onClick = {/* Handle tab click */},
+                onClick = { /* Handle category selection */ },
                 modifier = Modifier.padding(end = 8.dp)
             ) {
                 Text(category)
@@ -131,7 +137,27 @@ fun PetCategoryTabs() {
     }
 }
 
+@Composable
+fun CatList(cats: List<String>) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        items(cats) { cat ->
+            AsyncImage(
+                model = cat,
+                contentDescription = "Cat Image" ,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .padding(8.dp)
+            )
+        }
+    }
+}
 
+@Preview
+@Composable
+fun CatScreenPreview() {
+    CatScreen(catViewModel = CatViewModel(CatRepository(CatApiService)))
+}
 
 @Composable
 fun CatCard(catImageUrl: String) {
