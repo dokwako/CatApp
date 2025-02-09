@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -47,6 +48,14 @@ fun CatScreen(catViewModel: CatViewModel) {
         ) {
             SearchBar(searchText, onSearchTextChange =  { searchText = it})
         }
+
+        LazyColumn(
+            modifier =Modifier.fillMaxSize()
+        ) {
+            items(catViewModel.catList) {cat ->
+                CatItem(cat)
+            }
+        }
     }
 }
 
@@ -82,3 +91,5 @@ fun SearchBar(searchText: String, onSearchTextChange: (String) -> Unit) {
     )
 
 }
+
+
