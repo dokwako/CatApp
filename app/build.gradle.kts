@@ -90,6 +90,8 @@ dependencies {
     //Coil dependency
     implementation("io.coil-kt:coil-compose:2.5.0")
 
+    implementation ("com.google.accompanist:accompanist-swiperefresh:0.30.1") // Use the latest version
+
 
     implementation ("androidx.compose.ui:ui-tooling-preview:1.4.3") // Replace with latest stable version
 
