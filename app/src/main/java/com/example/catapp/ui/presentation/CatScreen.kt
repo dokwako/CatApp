@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -25,8 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.example.catapp.R
 import com.example.catapp.data.api.CatApiService
+import com.example.catapp.data.model.Cat
 import com.example.catapp.data.repository.CatRepository
 import com.example.catapp.ui.viewmodel.CatViewModel
 
@@ -92,4 +95,23 @@ fun SearchBar(searchText: String, onSearchTextChange: (String) -> Unit) {
 
 }
 
-
+@Composable
+fun CatItem(Cat:Cat) {
+    Row (
+        modifier =Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(cat.imageUrl),
+            contentDescription = "Cat Image",
+            modifier = Modifier.size(80.dp)
+        )
+        Text(
+            text = cat.name,
+            modifier = Modifier.padding(8.dp),
+            style =MaterialTheme.typography.bodyMedium
+        )
+    }
+}
