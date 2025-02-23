@@ -4,6 +4,7 @@ import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,8 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
@@ -22,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,7 +37,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,7 +69,8 @@ fun CatScreen(catViewModel: CatViewModel) {
             SearchBar(searchText, onSearchTextChange =  { searchText = it})
         }
 
-        LazyColumn(
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
             modifier =Modifier.fillMaxSize()
         ) {
             items(catViewModel.catList) {cat ->
@@ -78,31 +87,28 @@ fun TopBar() {
            .fillMaxWidth()
            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.weight(1f)
         ) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
                 contentDescription = "Location Icon",
-                tint = MaterialTheme.colorScheme.primary,
+                tint = Color.Red,
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Nairobi ,Kenya" ,
                 style = MaterialTheme.typography.titleMedium,
-
-                )
-
+            )
         }
 
         Image(
             painter = painterResource(id = R.drawable.profile),
             contentDescription = "Profile",
             modifier = Modifier
-                .size(40.dp)
+                .size(45.dp)
                 .clip(CircleShape)
         )
     }
@@ -116,10 +122,18 @@ fun SearchBar(searchText: String, onSearchTextChange: (String) -> Unit) {
         label = { Text("Search for Pets") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         leadingIcon = {
-            Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
-        }
+            Icon(imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color.Gray
+            )
+        },
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = MaterialTheme.colorScheme.surface,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface
+
+        )
     )
 
 }
@@ -129,18 +143,65 @@ fun CatItem(cat:Cat) {
     Row (
         modifier =Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.Start
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = rememberAsyncImagePainter(cat.imageUrl),
             contentDescription = "Cat Image",
-            modifier = Modifier.size(80.dp)
+            modifier = Modifier
+                .size(120.dp)
+                .clip(RoundedCornerShape(12.dp))
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Column {
+            Text(
+                text = cat.name,
+                style =MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = "Adopt me",
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Gray
+            )
+        }
+
+    }
+}
+
+@Composable
+fun CatGrid(catViewModel: CatViewModel) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2), // 2-column grid
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(8.dp)
+    ) {
+        items(catViewModel.catList) { cat ->
+            CatGridItem(cat)
+        }
+    }
+}
+
+@Composable
+fun CatGridItem(cat: Cat) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .clip(RoundedCornerShape(12.dp))
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(cat.imageUrl),
+            contentDescription = "Cat Image",
+            modifier = Modifier
+                .size(100.dp)
+                .clip(RoundedCornerShape(12.dp))
         )
         Text(
             text = cat.name,
-            modifier = Modifier.padding(8.dp),
-            style =MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 4.dp)
         )
     }
 }
