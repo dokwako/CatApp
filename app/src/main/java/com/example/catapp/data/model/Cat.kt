@@ -6,11 +6,14 @@ data class Cat(
     val imageUrl: String
 ) {
     companion object {
+        
         fun fromCatImage(catImage: CatImage): Cat {
             return Cat(
                 id = catImage.id,
                 name = catImage.breeds?.firstOrNull()?.name ?: "Unknown",
                 imageUrl = catImage.url
+
+                // what about this other one
             )
         }
     }
